@@ -19,7 +19,7 @@ tfidf = joblib.load("Models/tfidf_vectorizer.pkl")
 # Load dataset
 # -----------------------------
 
-df = pd.read_csv("sentiment_dataset/Reviews.csv")
+df = pd.read_csv("data/product_reviews.csv")
 
 
 # -----------------------------
