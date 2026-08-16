@@ -92,7 +92,9 @@ Amazon-Fine-Food-Sentiment-Analyzer/
 
 Clone the repository:
 
+```bash
 git clone https://github.com/CodeMaestro-sys/Amazon-Fine-Food-Sentiment-Analyzer.git
+```
 cd Amazon-Fine-Food-Sentiment-Analyzer
 
 Install dependencies:
