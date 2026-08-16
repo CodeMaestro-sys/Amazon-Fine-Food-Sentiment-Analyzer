@@ -5,8 +5,12 @@ An NLP-based sentiment analysis application that analyzes Amazon Fine Food custo
 The project uses **TF-IDF and a tuned Linear SVM** and provides an interactive **Streamlit dashboard** for both individual review analysis and product-level sentiment analysis.
 
 ---
+## 🚀 Live Demo
 
-## 🚀 Features
+🔗 **https://amazon-fine-food-sentiment-analyzer-casxqrd6be49clrlxzyappx.streamlit.app/**
+---
+
+## Features
 
 - Analyze sentiment of an individual customer review
 - Analyze sentiment for a complete product using its Product ID
@@ -88,7 +92,7 @@ Amazon-Fine-Food-Sentiment-Analyzer/
 
 Clone the repository:
 
-git clone <YOUR_REPOSITORY_URL>
+git clone https://github.com/CodeMaestro-sys/Amazon-Fine-Food-Sentiment-Analyzer.git
 cd Amazon-Fine-Food-Sentiment-Analyzer
 
 Install dependencies:
