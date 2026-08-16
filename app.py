@@ -140,6 +140,7 @@ else:
                 predictions = best_svm.predict(review_vectors)
 
                 product_reviews["Predicted_Sentiment"] = predictions
+                st.session_state["product_reviews"] = product_reviews
 
 
                 sentiment_counts = (
@@ -225,33 +226,28 @@ else:
                     chart_data.set_index("Sentiment")
                 )
 
-                st.subheader("Product Reviews")
-
-                selected_sentiment = st.selectbox(
-                    "Filter Reviews",
-                    [
-                        "All",
-                        "Positive",
-                        "Neutral",
-                        "Negative"
-                    ]
-                )
-
-                if selected_sentiment != "All":
-
-                    display_reviews = product_reviews[
-                        product_reviews["Predicted_Sentiment"]
-                        == selected_sentiment
-                    ]
-
-                else:
-
-                    display_reviews = product_reviews
-
-
-                st.dataframe(
-                    display_reviews[
-                        ["Text", "Predicted_Sentiment"]
-                    ],
-                    use_container_width=True
-                )
+    if "product_reviews" in st.session_state:
+        product_reviews = st.session_state["product_reviews"]
+        st.subheader("Product Reviews")
+        selected_sentiment = st.selectbox(
+        "Filter Reviews",
+        [
+            "All",
+            "Positive",
+            "Neutral",
+            "Negative"
+        ]
+    )
+        if selected_sentiment != "All":
+            display_reviews = product_reviews[
+            product_reviews["Predicted_Sentiment"]
+            == selected_sentiment
+        ]
+        else:
+            display_reviews = product_reviews
+        st.dataframe(
+        display_reviews[
+            ["Text", "Predicted_Sentiment"]
+        ],
+        use_container_width=True
+    )
