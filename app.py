@@ -6,25 +6,16 @@ import string
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-
-# -----------------------------
 # Load model and vectorizer
-# -----------------------------
 
 best_svm = joblib.load("Models/sentiment_svm_model.pkl")
 tfidf = joblib.load("Models/tfidf_vectorizer.pkl")
 
-
-# -----------------------------
 # Load dataset
-# -----------------------------
 
 df = pd.read_csv("data/product_reviews.csv")
 
-
-# -----------------------------
 # Streamlit configuration
-# -----------------------------
 
 st.set_page_config(
     page_title="Amazon Fine Food Sentiment Analyzer",
@@ -34,10 +25,7 @@ st.set_page_config(
 
 st.title("🍴 Amazon Fine Food Sentiment Analyzer")
 
-
-# -----------------------------
 # Text preprocessing
-# -----------------------------
 
 def preprocessing(text):
 
@@ -70,19 +58,14 @@ def preprocessing(text):
     return " ".join(lemmatized_words)
 
 
-# -----------------------------
 # Sidebar
-# -----------------------------
 
 option = st.sidebar.selectbox(
     "Choose Analysis",
     ["Review Analyzer", "Product Analyzer"]
 )
 
-
-# ============================================================
 # REVIEW ANALYZER
-# ============================================================
 
 if option == "Review Analyzer":
 
@@ -111,9 +94,7 @@ if option == "Review Analyzer":
             st.success(f"Predicted Sentiment: {prediction}")
 
 
-# ============================================================
 # PRODUCT ANALYZER
-# ============================================================
 
 else:
 
@@ -148,10 +129,6 @@ else:
 
             else:
 
-                # -----------------------------
-                # Predict sentiments
-                # -----------------------------
-
                 texts = product_reviews["Text"].fillna("").apply(preprocessing)
 
                 review_vectors = tfidf.transform(texts)
@@ -161,25 +138,15 @@ else:
                 product_reviews["Predicted_Sentiment"] = predictions
 
 
-                # -----------------------------
-                # Sentiment counts
-                # -----------------------------
-
                 sentiment_counts = (
                     product_reviews["Predicted_Sentiment"]
                     .value_counts()
                 )
 
                 total_reviews = len(product_reviews)
-
                 positive_count = sentiment_counts.get("Positive", 0)
                 neutral_count = sentiment_counts.get("Neutral", 0)
                 negative_count = sentiment_counts.get("Negative", 0)
-
-
-                # -----------------------------
-                # Display metrics
-                # -----------------------------
 
                 st.subheader("Product Summary")
 
@@ -204,11 +171,6 @@ else:
                     "Negative",
                     f"{negative_count / total_reviews * 100:.1f}%"
                 )
-
-
-                # -----------------------------
-                # Overall sentiment
-                # -----------------------------
 
                 if positive_count > max(
                     neutral_count,
@@ -240,11 +202,6 @@ else:
                 else:
                     st.warning("Overall Sentiment: Neutral")
 
-
-                # -----------------------------
-                # Sentiment chart
-                # -----------------------------
-
                 chart_data = pd.DataFrame({
                     "Sentiment": [
                         "Positive",
@@ -263,11 +220,6 @@ else:
                 st.bar_chart(
                     chart_data.set_index("Sentiment")
                 )
-
-
-                # -----------------------------
-                # Review filtering
-                # -----------------------------
 
                 st.subheader("Product Reviews")
 
